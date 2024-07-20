@@ -1,30 +1,37 @@
 import React from "react";
 import { IEmployeeType } from "../types/employee";
+import { Link, useNavigate } from "react-router-dom";
+import axiosInstance from "../api";
 
-const EmployeeItem = ({
-  id,
-  employee_name,
-  profile_image,
-  employee_age,
-  employee_salary,
-}: IEmployeeType) => {
+interface IEmployeeItem {
+  item: IEmployeeType;
+  refetch: () => void;
+}
+
+const EmployeeItem = ({ item, refetch }: IEmployeeItem) => {
+  const { id, employee_name, employee_age, employee_salary } = item;
+  const navigate = useNavigate();
+  const handleDeleteUser = async () => {
+    axiosInstance.delete(`/delete/${id}`).then(() => refetch());
+  };
   return (
     <div className=" items-center flex-wrap gap-2 bg-slate-400 m-5 w-[250px] h-[150px] p-5">
-      <a href={`/employee/${id}`}>
-        {/* <img
-          src={profile_image}
-          alt="picEmployee"
-          className="h-[150px] w-[200px]"
-        /> */}
-
+      <Link to={`/employee/${id}`}>
         <div>name: {employee_name}</div>
         <div>age: {employee_age}</div>
         <div>salary: {employee_salary}</div>
-      </a>
-      <button className="p-2 cursor-pointer bg-[#374151] rounded mt-2">
+      </Link>
+      <button
+        className="p-2 cursor-pointer bg-[#374151] rounded mt-2"
+        type="button"
+        onClick={handleDeleteUser}
+      >
         delete
       </button>
-      <button className="p-2 cursor-pointer bg-[#374151] ml-5 rounded mt-2">
+      <button
+        className="p-2 cursor-pointer bg-[#374151] ml-5 rounded mt-2"
+        onClick={() => navigate(`/employees/${id}/edit`)}
+      >
         edit
       </button>
     </div>

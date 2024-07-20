@@ -1,8 +1,7 @@
 import React from "react";
-import DeleteEmployeeView from "../views/createEmployeeView";
 import CreateEmployeeView from "../views/createEmployeeView";
 
-const CreateEmployee = () => {
+const CreateEmployeePage = () => {
   return (
     <div>
       <CreateEmployeeView />
@@ -10,4 +9,4 @@ const CreateEmployee = () => {
   );
 };
 
-export default CreateEmployee;
+export default CreateEmployeePage;
