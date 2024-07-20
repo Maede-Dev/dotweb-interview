@@ -1,7 +1,10 @@
 import React from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const LoginView = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -9,7 +12,8 @@ const LoginView = () => {
   } = useForm();
 
   const submitForm = (data: FieldValues) => {
-    console.log(data);
+    localStorage.setItem("test_token", "TEST_TOKEN_VALUE");
+    navigate("/employee");
   };
 
   return (
